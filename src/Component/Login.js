@@ -18,7 +18,7 @@ const Login = () => {
     </div>
   </div>
   <div class="col-auto">
-    <button type="submit" class="btn btn-primary mb-3">Login</button>
+    <button type="submit" class="btn btn-primary mb-3">Login </button>
   </div>
     </div>
   )
