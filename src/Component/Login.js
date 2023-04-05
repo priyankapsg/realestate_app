@@ -3,6 +3,7 @@ import React from 'react'
 const Login = () => {
   return (
     <div>
+      <div><h1>welcome</h1> </div>
           <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-20">
