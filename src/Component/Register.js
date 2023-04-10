@@ -4,11 +4,12 @@ import {useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
+const Register = () => {
 
 const navigate = useNavigate();    
 
 const [form, setForm] = useState({
+    username: '',
     email: '',
     password: ''
 })
@@ -19,13 +20,13 @@ const handleChange = e => {
 
 const handlePost = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:5000/api/login`, form)
+    await axios.post(`http://localhost:5000/api/register`, form)
     .then( (res) => {
      if(res?.status === 200){
         toast.success('Account created successfully');
-        // setTimeout(() => {
-        //     navigate('/login')
-        // }, 2000); 
+        setTimeout(() => {
+            navigate('/login')
+        }, 2000); 
      }
     })
   }
@@ -38,6 +39,19 @@ const handlePost = async (e) => {
         />
         {/* Don't have an account? Sign up */}
       <form>
+          <div className="mb-3 row">
+    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Username</label>
+    <div className="col-sm-20">
+      <input type="text"  
+      className="form-control" 
+      id="staticEmail"  
+      name='username'
+      placeholder='Username'
+      onChange={handleChange}
+      />
+
+    </div>
+  </div>
           <div className="mb-3 row">
     <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
     <div className="col-sm-20">
@@ -69,11 +83,11 @@ const handlePost = async (e) => {
   <div className="col-auto">
     <button type="submit" className="btn btn-primary mb-3"
     onClick={handlePost}
-    >Login </button>
+    >Register </button>
   </div>
       </form>
     </div>
   )
 }
 
-export default Login
+export default Register
