@@ -3,13 +3,16 @@
 }
 
 .App-header {
-  background-color: #7586ab;
+  background-color:rgb(204, 14, 128);
+  background: url(D:\realestate_app\realestate_app\images\real1.jpg);
+  background-size: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(31, 193, 174);
+  
 }
 
