@@ -1,12 +1,27 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+
+const navigate =  useNavigate();
+
+const handleRoute = () => {
+navigate('./signup')
+}
+
+
   return (
     <div>
       <h1>Welcome to my homepage!</h1>
-      <button>BUYER</button><br></br>
-      <button>SELLER</button><br></br>
-      <button>RENTAL</button><br></br>
+      <button
+      onClick={handleRoute}
+      >BUYER</button><br></br>
+      <button
+            onClick={handleRoute}
+      >SELLER</button><br></br>
+      <button
+            onClick={handleRoute}
+      >RENTAL</button><br></br>
     </div>
   );
 }
