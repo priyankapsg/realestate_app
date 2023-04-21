@@ -12,7 +12,8 @@ navigate('./signup')
 
   return (
     <div>
-      <h1>Welcome to realestate application</h1><table><tr>
+      <h1>Welcome to realestate application</h1>
+      <form><table><tr>
       <td><button
       onClick={handleRoute}
       >BUYER</button><br></br></td>
@@ -22,7 +23,7 @@ navigate('./signup')
       <td><button
             onClick={handleRoute}
       >RENTAL</button><br></br></td>
-       </tr></table>
+       </tr></table></form>
     </div>
      
   );
