@@ -12,7 +12,7 @@ navigate('./signup')
 
   return (
     <div>
-      <h1>Welcome to my homepage!</h1>
+      <h1>Welcome to realestate application</h1>
       <button
       onClick={handleRoute}
       >BUYER</button><br></br>
