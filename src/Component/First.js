@@ -12,17 +12,19 @@ navigate('./signup')
 
   return (
     <div>
-      <h1>Welcome to realestate application</h1>
-      <button
+      <h1>Welcome to realestate application</h1><table><tr>
+      <td><button
       onClick={handleRoute}
-      >BUYER</button><br></br>
-      <button
+      >BUYER</button><br></br></td>
+      <td><button
             onClick={handleRoute}
-      >SELLER</button><br></br>
-      <button
+      >SELLER</button><br></br></td>
+      <td><button
             onClick={handleRoute}
-      >RENTAL</button><br></br>
+      >RENTAL</button><br></br></td>
+       </tr></table>
     </div>
+     
   );
 }
 
