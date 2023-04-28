@@ -10,6 +10,7 @@ navigate('./signup')
 }
 
 
+
   return (
     <div>
       <h1>Welcome to realestate application</h1>
