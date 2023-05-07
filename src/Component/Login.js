@@ -3,77 +3,99 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useFormik} from 'formik';
+import {object, string} from 'yup';
+import './style.css';
 
 const Login = () => {
 
-const navigate = useNavigate();    
+  const navigate = useNavigate();    
 
-const [form, setForm] = useState({
-    email: '',
-    password: ''
-})
-
-const handleChange = e => {
-    setForm({...form, [e.target.name]: e.target.value})
-}
-
-const handlePost = async (e) => {
-    e.preventDefault();
-    await axios.post(`http://localhost:5000/api/login`, form)
+  const handlePost = async (values) => {
+    await axios.post(`http://localhost:5000/api/login`, values)
     .then( (res) => {
-     if(res?.status === 200){
-        toast.success('Account created successfully');
-        // setTimeout(() => {
-        //     navigate('/login')
-        // }, 2000); 
+      console.log(res);
+     if(res?.data?.statusCode === 200){
+       handleReset();
+        setTimeout(() => {
+            navigate('/login')
+        }, 2000); 
+     } 
+     else if(res?.data?.statusCode === 400){
+        toast.error("Your email hasn't been registered")
      }
-    })
+     else if(res?.data?.statusCode === 201){
+        toast.error("Invalid email or password")
+     }
+      })
   }
-
-
-  return (
-    <div>
-        <ToastContainer
-        autoClose={2000}
+  
+  const registerValues = {
+    email:'',
+    password:''
+  }
+  
+  const RegisterSchema = object().shape({
+    email: string().email("Please enter a valid email address").required("Please enter your email address"),
+    password: string().required("Please enter your password")
+  })
+  
+  const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleReset} = useFormik({
+    initialValues: registerValues,
+    validationSchema: RegisterSchema,
+    onSubmit : handlePost,
+  })
+  
+  
+  const handleRegister = () => {
+    navigate('/signup');
+  }
+  
+    return (
+      <div>
+          <ToastContainer autoClose={2000}/>
+        <form onSubmit={handleSubmit} autoComplete='off'>
+            <div className=" row">
+      <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+      <div className="col-sm-20">
+        <input
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="email"  
+        type="email"  
+        className="form-control" 
+        placeholder='Enter your email ID'
+        autoComplete='off'
+       />
+       {errors.email && touched.email && <p className='error'>{errors.email}</p>}
+      </div>
+    </div>
+    <div className=" row">
+      <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+      <div className="col-sm-20">
+        <input
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="password" 
+        type="password" 
+        className="form-control" 
+        placeholder='Enter your password'
+        autoComplete='off'
         />
-        {/* Don't have an account? Sign up */}
-      <form>
-          <div className="mb-3 row">
-    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
-    <div className="col-sm-20">
-      <input 
-      type="text"  
-      className="form-control" 
-      id="staticEmail"  
-      name='email'
-      placeholder='email'
-      onChange={handleChange}
-     />
-
+       {errors.password && touched.password && <p className='error'>{errors.password}</p>}
+      </div>
     </div>
-  </div>
-  <div className="mb-3 row">
-    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-    <div className="col-sm-20">
-      <input 
-      type="password" 
-      className="form-control" 
-      id="inputPassword" 
-      name='password'
-      placeholder='password'
-      onChange={handleChange}
-      />
-
+    <div className='btn'>
+      <button type="submit" className="btn btn-primary ">Login </button>
+      <button className="btn btn-primary "
+      onClick={handleRegister}
+      >Register</button>
     </div>
-  </div>
-  <div className="col-auto">
-    <button type="submit" className="btn btn-primary mb-3"
-    onClick={handlePost}
-    >Login </button>
-  </div>
-      </form>
-    </div>
-  )
+        </form>
+      </div>
+    )
 }
 
 export default Login

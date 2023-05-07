@@ -3,8 +3,8 @@
 }
 
 .App-header {
-  background-color:rgb(204, 14, 128);
-  background: url('../images/real1.jpg');
+  /* background-color:rgb(204, 14, 128); */
+  /* background: url('../images/real1.jpg'); */
   background-size: 100%;
   min-height: 100vh;
   display: flex;

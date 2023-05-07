@@ -20,10 +20,10 @@ navigate('./signup')
       >BUYER</button><br></br></td>
       <td><button
             onClick={handleRoute}
-      >SELLER</button><br></br></td>
+      >RENTAL</button><br></br></td>
       <td><button
             onClick={handleRoute}
-      >RENTAL</button><br></br></td>
+      >OWNER</button><br></br></td>
        </tr></table></form>
     </div>
      
