@@ -14,12 +14,11 @@ const Login = () => {
   const handlePost = async (values) => {
     await axios.post(`http://localhost:5000/api/login`, values)
     .then( (res) => {
-      console.log(res);
-     if(res?.data?.statusCode === 200){
+     console.log(res);
+      if(res?.data?.statusCode === 200){
        handleReset();
-        setTimeout(() => {
-            navigate('/login')
-        }, 2000); 
+        if(res?.data?.user?.usertype === 'owner') navigate('/dashboard');
+        else navigate('/flats');
      } 
      else if(res?.data?.statusCode === 400){
         toast.error("Your email hasn't been registered")
@@ -55,8 +54,10 @@ const Login = () => {
       <div>
           <ToastContainer autoClose={2000}/>
         <form onSubmit={handleSubmit} autoComplete='off'>
-            <div className=" row">
-      <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+    <div className="card border-primary mb-3"  style={{width: "25%", margin: "250px 0px 250px 550px"}}>
+  <div className="card-body text-primary">
+    <h5 className="card-title">
+      <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Email</label>
       <div className="col-sm-20">
         <input
         value={values.email}
@@ -70,9 +71,7 @@ const Login = () => {
        />
        {errors.email && touched.email && <p className='error'>{errors.email}</p>}
       </div>
-    </div>
-    <div className=" row">
-      <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+      <label htmlFor="inputPassword" style={{margin:'20px 0px'}}>Password</label>
       <div className="col-sm-20">
         <input
         value={values.password}
@@ -85,13 +84,15 @@ const Login = () => {
         autoComplete='off'
         />
        {errors.password && touched.password && <p className='error'>{errors.password}</p>}
-      </div>
     </div>
     <div className='btn'>
-      <button type="submit" className="btn btn-primary ">Login </button>
-      <button className="btn btn-primary "
+      <button type="submit" className="btn btn-danger">Login </button>
+      <button className="btn btn-danger"
       onClick={handleRegister}
       >Register</button>
+    </div>
+    </h5>
+  </div>
     </div>
         </form>
       </div>

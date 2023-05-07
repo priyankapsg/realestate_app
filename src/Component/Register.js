@@ -54,8 +54,10 @@ const handleLogin = () => {
     <div>
         <ToastContainer autoClose={2000}/>
       <form onSubmit={handleSubmit} autoComplete='off'>
-          <div className=" row">
-    <label htmlFor="staticEmail" className="col-sm-4 col-form-label">Usertype</label>
+      <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
+  <div className="card-body text-primary">
+    <h5 className="card-title">   
+    <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Usertype</label>
     <div className="col-sm-20">
     <select 
     value={values.usertype}
@@ -71,9 +73,7 @@ const handleLogin = () => {
     </select>
      {errors.usertype && touched.usertype && <p className='error'>{errors.usertype}</p>}
     </div>
-  </div>
-  <div className=" row">
-    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Username</label>
+    <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Username</label>
     <div className="col-sm-20">
       <input
       value={values.username}
@@ -87,9 +87,7 @@ const handleLogin = () => {
      />
      {errors.username && touched.username && <p className='error'>{errors.username}</p>}
     </div>
-  </div>
-          <div className=" row">
-    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+    <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Email</label>
     <div className="col-sm-20">
       <input
       value={values.email}
@@ -103,9 +101,7 @@ const handleLogin = () => {
      />
      {errors.email && touched.email && <p className='error'>{errors.email}</p>}
     </div>
-  </div>
-  <div className=" row">
-    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+    <label htmlFor="inputPassword" style={{margin:'20px 0px'}}>Password</label>
     <div className="col-sm-20">
       <input
       value={values.password}
@@ -119,9 +115,7 @@ const handleLogin = () => {
       />
      {errors.password && touched.password && <p className='error'>{errors.password}</p>}
     </div>
-  </div>
-  <div className=" row">
-    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Mobile</label>
+    <label htmlFor="inputPassword" style={{margin:'20px 0px'}}>Mobile</label>
     <div className="col-sm-20">
       <input
       value={values.mobile}
@@ -135,13 +129,15 @@ const handleLogin = () => {
       />
      {errors.mobile && touched.mobile && <p className='error'>{errors.mobile}</p>}
     </div>
-  </div>
   <div className='btn'>
-    <button type="submit" className="btn btn-primary ">Register </button>
-    <button className="btn btn-primary "
+    <button type="submit" className="btn btn-danger ">Register </button>
+    <button className="btn btn-danger "
     onClick={handleLogin}
     >Login</button>
   </div>
+  </h5>
+  </div>
+    </div>
       </form>
     </div>
   )
