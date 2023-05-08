@@ -1,3 +1,8 @@
+.header {
+    background-image: url('https://manipaldigital.info/wp-content/uploads/2021/05/cgi-and-how-its-revolutionizing-real-estate-marketing-banner.jpg');
+    background-size: cover;
+}
+
 .error {
     font-size: 15px;
     color: red;

@@ -7,31 +7,32 @@ const navigate = useNavigate();
 
 const handleForm = (type) => {
     navigate(`/form/${type}`);
-}    
+}
+
+const handleFlat = () => {
+  navigate('/flats');
+}
 
   return (
-    <div style={{display:'flex'}}>
-        <div className="card-group">
-  <div className="card">
-    <img className="card-img-top" src="..." alt="Card image cap"/>
-    <div className="card-body">
-      <h5 className="card-title">Submit Property</h5>
-      <h5 className="card-title">Manage Listing</h5>
-      <h5 className="card-title">View Profile</h5>
-      <h5 className="card-title">Change Password</h5>
-      <h5 className="card-title">Logout</h5>
-    </div>
-  </div>
-  <div className="card">
-    <img className="card-img-top" src="..." alt="Card image cap"/>
-    <div className="card-body">
-    <div className="card-title" style={{display:'flex'}}>
-            <button onClick={() => handleForm('sale')} className="btn btn-primary ">For Sale</button>
+  
+  
+  
+  <div className='header'>
+<nav class="navbar navbar-expand-lg navbar-light" style={{padding: "330px 110px 330px 594px"}}>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto" style={{gap:'20px'}}>
+      <li class="nav-item active">
+      <button onClick={() => handleForm('sale')} className="btn btn-primary ">For Sale</button>
+      </li>
+      <li class="nav-item">
             <button onClick={() => handleForm('rent')} className="btn btn-primary ">For Rent</button>
-        </div>
-    </div>
+      </li>
+      <li class="nav-item">
+            <button onClick={handleFlat} className="btn btn-primary ">Manage Listing</button>
+      </li>
+    </ul>
   </div>
-</div>
+</nav>
     </div>
   )
 }

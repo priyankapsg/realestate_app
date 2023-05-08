@@ -70,7 +70,7 @@ const handleLogin = () => {
 }
 
   return (
-    <div>
+    <div className='header'>
     <ToastContainer autoClose={2000}/>
   <form onSubmit={handleSubmit} autoComplete='off'>
   <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>

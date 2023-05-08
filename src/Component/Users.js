@@ -22,7 +22,7 @@ useEffect(()  => {
 
 
   return (
-    <div>
+    <div className='header'>
       {flat?.length > 0 && flat?.map( (data) => {
         return (
           <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
