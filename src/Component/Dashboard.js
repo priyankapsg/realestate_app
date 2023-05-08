@@ -1,6 +1,14 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom';
 
 const Dashboard = () => {
+
+const navigate = useNavigate();     
+
+const handleForm = (type) => {
+    navigate(`/form/${type}`);
+}    
+
   return (
     <div style={{display:'flex'}}>
         <div className="card-group">
@@ -18,8 +26,8 @@ const Dashboard = () => {
     <img className="card-img-top" src="..." alt="Card image cap"/>
     <div className="card-body">
     <div className="card-title" style={{display:'flex'}}>
-            <button className="btn btn-primary ">For Sale</button>
-            <button className="btn btn-primary ">For Rent</button>
+            <button onClick={() => handleForm('sale')} className="btn btn-primary ">For Sale</button>
+            <button onClick={() => handleForm('rent')} className="btn btn-primary ">For Rent</button>
         </div>
     </div>
   </div>
