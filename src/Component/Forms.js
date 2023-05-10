@@ -14,10 +14,8 @@ let { type } = useParams();
 const navigate = useNavigate();    
 
 const handlePost = async (values) => {
-console.log(values);
   await axios.post(`http://localhost:5000/api/flat`, values)
   .then( (res) => {
-console.log(res);
     if(res?.data?.acknowledged === true){
      handleReset();
       toast.success('Property created successfully');
@@ -40,7 +38,9 @@ const saleValues = {
   pet:'',
   bhk:'',
   parking:'',
-  description:''
+  description:'',
+  property: type === 'sale' ? 'sale' : 'rent',
+  email: sessionStorage.getItem('user') ? sessionStorage.getItem('user') : ''
 }
 
 const saleSchema = object().shape({

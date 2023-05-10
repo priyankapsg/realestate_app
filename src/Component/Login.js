@@ -14,11 +14,10 @@ const Login = () => {
   const handlePost = async (values) => {
     await axios.post(`http://localhost:5000/api/login`, values)
     .then( (res) => {
-     console.log(res);
       if(res?.data?.statusCode === 200){
        handleReset();
-        if(res?.data?.user?.usertype === 'owner') navigate('/dashboard');
-        else navigate('/flats');
+       sessionStorage.setItem('user', values?.email);
+       navigate('/dashboard');
      } 
      else if(res?.data?.statusCode === 400){
         toast.error("Your email hasn't been registered")
@@ -47,7 +46,7 @@ const Login = () => {
   
   
   const handleRegister = () => {
-    navigate('/signup');
+    navigate('/register');
   }
   
     return (

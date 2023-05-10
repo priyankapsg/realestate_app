@@ -13,12 +13,14 @@ const navigate = useNavigate();
 const handlePost = async (values) => {
   await axios.post(`http://localhost:5000/api/register`, values)
   .then( (res) => {
-   if(res?.status === 200){
+   if(res?.data?.statusCode === 200){
      handleReset();
       toast.success('Account created successfully');
       setTimeout(() => {
           navigate('/login')
       }, 2000); 
+   } else {
+    toast.error("This email address has been taken, please try another email address");
    }
   })
 }
@@ -68,8 +70,8 @@ const handleLogin = () => {
     >
       <option selected>Select Type</option>
       <option value={'owner'}>Owner</option>
-      <option value={'rental'}>Rental</option>
-      <option value={'buyer'}>Buyer</option>
+      <option value={'agent'}>Agent</option>
+      <option value={'builder'}>Builder</option>
     </select>
      {errors.usertype && touched.usertype && <p className='error'>{errors.usertype}</p>}
     </div>
