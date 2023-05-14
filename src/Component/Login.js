@@ -50,10 +50,11 @@ const Login = () => {
   }
   
     return (
-      <div className='header'>
+      <div className='body'>
           <ToastContainer autoClose={2000}/>
         <form onSubmit={handleSubmit} autoComplete='off'>
-    <div className="card border-primary"  style={{width: "25%", margin: "180px 0px 200px 550px"}}>
+    {/* <div className="card border-primary"  style={{width: "25%", margin: "180px 0px 200px 550px"}}> */}
+    < div className='form'>
   <div className="card-body text-primary">
     <h5 className="card-title">
       <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Email</label>
