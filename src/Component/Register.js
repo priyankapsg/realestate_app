@@ -11,7 +11,7 @@ const Register = () => {
 const navigate = useNavigate();    
 
 const handlePost = async (values) => {
-  await axios.post(`http://localhost:5000/api/register`, values)
+  await axios.post(`http://localhost:5000/app/user/register`, values)
   .then( (res) => {
    if(res?.data?.statusCode === 200){
      handleReset();

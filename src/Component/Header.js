@@ -1,7 +1,9 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const Header = () => {
+
+let header = window.location.pathname;
 
 const navigate = useNavigate();  
 const handleBack = () => {
@@ -20,7 +22,9 @@ let Check = sessionStorage.getItem('user');
       <nav className="navbar navbar-dark bg-dark">
   <a className="navbar-brand" href="#"></a>
   <div className='btn_header'>
+    {header !== '/dashboard' &&
     <button onClick={handleBack} type="submit" className="btn btn-danger ">Back </button>
+    }
     {Check?.length > 0 &&
     <button className="btn btn-danger "
      onClick={handleLogout}

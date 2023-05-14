@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();    
 
   const handlePost = async (values) => {
-    await axios.post(`http://localhost:5000/api/login`, values)
+    await axios.post(`http://localhost:5000/app/user/login`, values)
     .then( (res) => {
       if(res?.data?.statusCode === 200){
        handleReset();

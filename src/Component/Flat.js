@@ -7,21 +7,45 @@ import {object, string, number} from 'yup';
 import './style.css';
 import Home from '../images/small.jpg';
 import { useParams, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const Flat = () => {
 
-let { type } = useParams(); 
-  
+let { type } = useParams();
+
+
 const [flat, setflat] = useState([]);
 
 useEffect(()  => {
-   axios.get(`http://localhost:5000/api/flats/${type}`)
+   axios.get(`http://localhost:5000/app/flat/getFlats/${type}`)
   .then( (res) => {
-  if(res?.status === 200){
-    setflat(res?.data);
+    console.log(res);
+  if(res?.data?.statusCode === 200){
+    setflat(res?.data?.data);
   }
   })
 }, [])
+
+
+const [open, setOpen] = useState(false);
+const theme = useTheme();
+const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
 
 
   return (
@@ -36,11 +60,37 @@ useEffect(()  => {
           </h5>
           <p className="card-text">Size : {data?.size}</p>
           <p className="card-text">Price : {data?.price}</p>
-          <a href="#" className="btn btn-primary">Contact Owner</a>
+          <button className="btn btn-primary" onClick={handleClickOpen} >Contact Owner</button>
           </div>
           </div>
         )
       })}
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Disagree
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   )
 }

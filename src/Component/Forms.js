@@ -1,27 +1,37 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useFormik} from 'formik';
 import {object, string, number} from 'yup';
-import './style.css';
+// import './style.css';
 
-const Forms = () => {
+const Forms = ({detail, data, Show, Modal, Save, List}) => {
 
-let { type } = useParams();
-
-const navigate = useNavigate();    
+let type = detail;
 
 const handlePost = async (values) => {
-  await axios.post(`http://localhost:5000/api/flat`, values)
+  await axios.post(`http://localhost:5000/app/flat/createFlat`, values)
   .then( (res) => {
-    if(res?.data?.acknowledged === true){
+    if(res?.data?.statusCode === 200){
+     toast.success('Property created successfully');
      handleReset();
-      toast.success('Property created successfully');
-      setTimeout(() => {
-          navigate('/dashboard')
-      }, 2000); 
+     setTimeout(() => {
+       Save(false);
+       List(true);
+     }, 2000);
+   }
+  })
+}
+
+const handlePut = async (values) => {
+  await axios.put(`http://localhost:5000/app/flat/updateFlat/${values?._id}`, values)
+  .then( (res) => {
+    if(res?.data?.statusCode === 200){
+    handleReset();
+    Show(true);
+    Modal(false);
+    toast.success('Property update successfully');
    }
   })
 }
@@ -42,32 +52,45 @@ const saleValues = {
   property: type === 'sale' ? 'sale' : 'rent',
   email: sessionStorage.getItem('user') ? sessionStorage.getItem('user') : ''
 }
+const EditsaleValues = {
+  _id : data? data._id : '',
+  location:data?  data.location : '',
+  size: data? data.size : '',
+  price: data? data.price : '',
+  negotiable: data? data.negotiable : '',
+  age: data? data.age : '',
+  type: data?  data.type : '',
+  advance:data?  data.advance : '',
+  rent: data? data.rent : '',
+  pet:data?  data.pet : '',
+  bhk: data?  data.bhk : '',
+  parking: data? data.parking : '',
+  description:data?  data.description : '',
+  property:data?  data.property : '',
+  email: data? data.email  : ''
+}
 
 const saleSchema = object().shape({
   location:string().required("Please enter the location"),
   size: number().positive().integer().required("Please enter the size"),
   price: number().positive().integer().required("Please enter the price amount"),
-  negotiable: type === 'sale' ? string().required("Please choose any one option") : '',
-  age: type === 'sale' ? string().required("Please choose any one option") : '',
-  type: type === 'sale' ? string().required("Please choose any one option") : '',
-  advance: type === 'rent' ? number().positive().integer().required("Please enter a description") : '',
-  rent: type === 'rent' ? number().positive().integer().required("Please enter a description") : '',
-  pet: type === 'rent' ? string().required("Please choose any one option") : '',
+  negotiable: (type === 'sale' || data?.property === 'sale') ? string().required("Please choose any one option") : '',
+  age: (type === 'sale' || data?.property === 'sale') ? string().required("Please choose any one option") : '',
+  type: (type === 'sale' || data?.property === 'sale') ? string().required("Please choose any one option") : '',
+  advance: (type === 'rent' || data?.property === 'rent') ? number().positive().integer().required("Please enter a description") : '',
+  rent: (type === 'rent' || data?.property === 'rent') ? number().positive().integer().required("Please enter a description") : '',
+  pet: (type === 'rent' || data?.property === 'rent') ? string().required("Please choose any one option") : '',
   bhk:string().required("Please choose any one option"),
   parking:string().required("Please choose any one option"),
   description:string().required("Please enter a description")
 })
 
 const {values, errors, touched, setFieldValue, handleBlur, handleChange, handleSubmit, handleReset} = useFormik({
-  initialValues: saleValues,
+  initialValues: data? EditsaleValues : saleValues,
   validationSchema: saleSchema,
-  onSubmit : handlePost,
+  onSubmit : data? handlePut : handlePost,
 })
 
-
-const handleLogin = () => {
-  navigate('/login');
-}
 
   return (
     <div className='header'>
@@ -123,7 +146,7 @@ const handleLogin = () => {
 </div>
 
 
-{type === 'sale' ?
+{(type === 'sale' || data?.property === 'sale') ?
 (
 <>
 <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Negotiable</label>
