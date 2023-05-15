@@ -26,7 +26,6 @@ const [flat, setflat] = useState([]);
 useEffect(()  => {
    axios.get(`http://localhost:5000/app/flat/getFlats/${type}`)
   .then( (res) => {
-    console.log(res);
   if(res?.data?.statusCode === 200){
     setflat(res?.data?.data);
   }
@@ -35,16 +34,46 @@ useEffect(()  => {
 
 
 const [open, setOpen] = useState(false);
+const [openData, setOpenData] = useState([]);
 const theme = useTheme();
 const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-const handleClickOpen = () => {
+const handleClickOpen = (data) => {
+  setOpenData(data);  
   setOpen(true);
 };
 
 const handleClose = () => {
   setOpen(false);
 };
+
+const handlePost = async (values) => {
+  await axios.post(`http://localhost:5000/app/user/login`, values)
+  .then( (res) => {
+    if(res?.data?.statusCode === 200){
+     handleReset();
+   }
+    })
+}
+
+const registerValues = {
+  name:'',
+  email:'',
+  phone:''
+}
+
+const RegisterSchema = object().shape({
+  name: string().required("Please enter your name"),
+  email: string().email("Please enter a valid email address").required("Please enter your email address"),
+  password: string().required("Please enter your password")
+})
+
+const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleReset} = useFormik({
+  initialValues: registerValues,
+  validationSchema: RegisterSchema,
+  onSubmit : handlePost,
+})
+
 
 
 
@@ -60,7 +89,7 @@ const handleClose = () => {
           </h5>
           <p className="card-text">Size : {data?.size}</p>
           <p className="card-text">Price : {data?.price}</p>
-          <button className="btn btn-primary" onClick={handleClickOpen} >Contact Owner</button>
+          <button className="btn btn-primary" onClick={() => handleClickOpen(data)} >Contact Owner</button>
           </div>
           </div>
         )
@@ -73,22 +102,59 @@ const handleClose = () => {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
+          {"Contact with the Seller Right Now"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
+        <form onSubmit={handleSubmit} autoComplete='off'>
+    <div style={{display: "flex",
+    flexDirection: "column",
+    gap: "20px"}}>
+      {/* <div>
+        <input
+        value={values.name}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="name"  
+        type="name"  
+        className="form-control" 
+        placeholder='Enter your name'
+        autoComplete='off'
+       />
+       {errors.name && touched.name && <p className='error'>{errors.name}</p>}
+      </div>
+      <div>
+        <input
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="email"  
+        type="email"  
+        className="form-control" 
+        placeholder='Enter your email ID'
+        autoComplete='off'
+       />
+       {errors.email && touched.email && <p className='error'>{errors.email}</p>}
+      </div>
+      <div>
+        <input
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="password" 
+        type="password" 
+        className="form-control" 
+        placeholder='Enter your password'
+        autoComplete='off'
+        />
+       {errors.password && touched.password && <p className='error'>{errors.password}</p>}
+    </div> */}
+    <h4>Owner Email : {openData?.email}</h4>
+    </div>
+    {/* <div className='btn'>
+      <button type="submit" className="btn btn-danger">Get Contact Details</button>
+    </div> */}
+        </form>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Disagree
-          </Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
       </Dialog>
 
     </div>
