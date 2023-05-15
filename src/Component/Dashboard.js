@@ -12,10 +12,17 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Forms from './Forms';
 import Listing from './Listing';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const Dashboard = () => {
+
+  const navigate = useNavigate();  
+  const handleBack = () => {
+      navigate('/');
+      sessionStorage.clear();
+  }
 
 const [modal, setmodal] = useState(false);
 const [modalType, setmodalType] = useState([]);
@@ -97,7 +104,7 @@ const handleForm2 = () => {
               </ListItemButton>
             </ListItem>
             <ListItem key={'Logout'} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={handleBack}>
                 <ListItemIcon>
                <InboxIcon />
                 </ListItemIcon>
