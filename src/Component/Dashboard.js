@@ -87,6 +87,14 @@ const handleForm2 = () => {
                 <ListItemText primary={'Manage Listing'} />
               </ListItemButton>
             </ListItem>
+            <ListItem key={'Contact Details'} disablePadding>
+              <ListItemButton onClick={() => handleForm2()}>
+                <ListItemIcon>
+               <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Contact Details'} />
+              </ListItemButton>
+            </ListItem>
             <ListItem key={'View Profile'} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

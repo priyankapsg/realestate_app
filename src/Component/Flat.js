@@ -35,6 +35,7 @@ useEffect(()  => {
 
 const [open, setOpen] = useState(false);
 const [openData, setOpenData] = useState([]);
+const [ownerData, setOwnerData] = useState([]);
 const theme = useTheme();
 const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -45,27 +46,40 @@ const handleClickOpen = (data) => {
 
 const handleClose = () => {
   setOpen(false);
+  handleReset();
+  setOwnerData([]);
 };
 
 const handlePost = async (values) => {
-  await axios.post(`http://localhost:5000/app/user/login`, values)
+  await axios.post(`http://localhost:5000/app/contact/createContact`, {
+  ownerEmail: openData?.email,
+  name: values?.name,
+  email: values?.email,
+  password: values?.password,
+  mobile: values?.mobile,
+  })
   .then( (res) => {
+    console.log(res);
     if(res?.data?.statusCode === 200){
      handleReset();
+     setOwnerData(res?.data?.data);
    }
     })
 }
 
 const registerValues = {
+  ownerEmail:'',
   name:'',
   email:'',
-  phone:''
+  password:'',
+  mobile:'',
 }
 
 const RegisterSchema = object().shape({
   name: string().required("Please enter your name"),
   email: string().email("Please enter a valid email address").required("Please enter your email address"),
-  password: string().required("Please enter your password")
+  password: string().required("Please enter your password"),
+  mobile: number().positive().integer().required("Please enter your mobile number")
 })
 
 const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleReset} = useFormik({
@@ -109,7 +123,23 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
     <div style={{display: "flex",
     flexDirection: "column",
     gap: "20px"}}>
-      {/* <div>
+      {ownerData?.length > 0 ? 
+     
+     <>
+      {ownerData?.map ( (data) => {
+        return (
+          <>
+          <h4>NAME : {data?.username}</h4> 
+          <h4>EMAIL : {data?.email}</h4> 
+          <h4>MOBILE : {data?.mobile}</h4> 
+          </>
+        )
+      })}
+      </>
+      
+      : 
+      <>
+      <div>
         <input
         value={values.name}
         onChange={handleChange}
@@ -147,12 +177,29 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
         autoComplete='off'
         />
        {errors.password && touched.password && <p className='error'>{errors.password}</p>}
-    </div> */}
-    <h4>Owner Email : {openData?.email}</h4>
     </div>
-    {/* <div className='btn'>
-      <button type="submit" className="btn btn-danger">Get Contact Details</button>
-    </div> */}
+      <div>
+        <input
+        value={values.mobile}
+        onChange={handleChange}
+        onBlur={handleBlur} 
+        id="mobile" 
+        type="mobile" 
+        className="form-control" 
+        placeholder='Enter your mobile number'
+        autoComplete='off'
+        />
+       {errors.mobile && touched.mobile && <p className='error'>{errors.mobile}</p>}
+    </div>
+      </>
+      }
+    </div>
+    <div className='btn'>
+    {ownerData?.length > 0 ? '' : <button type="submit" className="btn btn-danger">Get Contact details</button>}
+      <button className="btn btn-danger" type='button' 
+      onClick={()=> handleClose()}
+      >Close</button>
+    </div>
         </form>
         </DialogContent>
       </Dialog>
