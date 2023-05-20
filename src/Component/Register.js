@@ -71,8 +71,8 @@ const handleLogin = () => {
     >
       <option selected>Select Type</option>
       <option value={'owner'}>Owner</option>
-      <option value={'agent'}>Agent</option>
-      <option value={'builder'}>Builder</option>
+      <option value={'agent'}>Admin</option>
+      {/* <option value={'builder'}>Builder</option> */}
     </select>
      {errors.usertype && touched.usertype && <p className='error'>{errors.usertype}</p>}
     </div>
