@@ -96,7 +96,7 @@ const {values, errors, touched, setFieldValue, handleBlur, handleChange, handleS
     <div className='header'>
     <ToastContainer autoClose={2000}/>
   <form onSubmit={handleSubmit} autoComplete='off'>
-  <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
+  <div className="card border-primary mb-3"  style={{width: "30%", margin: "70px 0px 0px 625px"}}>
 <div className="card-body text-primary">
 <h5 className="card-title"> 
 <label htmlFor="staticEmail" style={{margin:'20px 0px'}}>Location</label>
@@ -287,20 +287,6 @@ onChange={(e)=> setFieldValue("parking",e.target.value)}
   <option value={'both'}>Both</option>
 </select>
  {errors.parking && touched.parking && <p className='error'>{errors.parking}</p>}
-</div>
-<label htmlFor="inputPassword" style={{margin:'20px 0px'}}>Description</label>
-<div className="col-sm-20">
-  <input
-  value={values.description}
-  onChange={handleChange}
-  onBlur={handleBlur} 
-  id="description" 
-  type="description" 
-  className="form-control" 
-  placeholder='Enter your description number'
-  autoComplete='off'
-  />
- {errors.description && touched.description && <p className='error'>{errors.description}</p>}
 </div>
 <div className='btn'>
 <button type="submit" className="btn btn-danger " style={{marginLeft:'70px'}}>Save & Continue</button>

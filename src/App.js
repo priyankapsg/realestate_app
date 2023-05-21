@@ -17,7 +17,7 @@ function App() {
 <Route path='register' element={<Register/>} />
 <Route path='flats/:type' element={<Flat/>} />
 <Route path='dashboard' element={<Dashboard/>}>
-     <Route path='contact' element={<Contact/>} />
+
 </Route>
 
 </Routes>

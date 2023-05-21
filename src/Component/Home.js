@@ -38,11 +38,8 @@ navigate(`./flats/${type}`)
  
   <div class="img"></div>
   <div class="center">
-    <div class="title">Sell your home, open new doors</div>
-    <div class="sub_title"> Our app makes it effortless</div>
     <div class="btns">
       <button>SEARCH</button>
-      {/* <button>Subscribe</button> */}
     </div>
   </div>
 

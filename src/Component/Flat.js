@@ -15,6 +15,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import Rent from '../images/rent.png';
+import Sale from '../images/sale.png';
 
 const Flat = () => {
 
@@ -41,6 +43,7 @@ const theme = useTheme();
 const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 const handleClickOpen = (data) => {
+  console.log(data);
   setOpenData(data);  
   setOpen(true);
 };
@@ -56,7 +59,8 @@ const handlePost = async (values) => {
   ownerEmail: openData?.email,
   name: values?.name,
   email: values?.email,
-  mobile: values?.mobile
+  mobile: values?.mobile,
+  flat_id: openData?._id
   })
   .then( (res) => {
     console.log(res);
@@ -106,7 +110,9 @@ const handleBack = () => {
       {flat?.length > 0 && flat?.map( (data) => {
         return (
           <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
-          <img className="card-img-top" src='https://www.coimbatoreproperty.com/property/image-not-available.jpg' alt="Card image cap"/>
+          <img className="card-img-top" 
+          src= {type === 'rent'  ? Rent : Sale} 
+          alt="Card image cap"/>
           <div className="card-body text-primary ">
           <h5 className="card-title">
          {data?.bhk} BHK Flat For {type} in {data?.location} 
@@ -139,9 +145,9 @@ const handleBack = () => {
       {ownerData?.map ( (data) => {
         return (
           <>
-          <h4>NAME : {data?.username}</h4> 
-          <h4>EMAIL : {data?.email}</h4> 
-          <h4>MOBILE : {data?.mobile}</h4> 
+          <h5 class="text-primary ">Name : {data?.username}</h5> 
+          <h5 class="text-primary ">Email : {data?.email}</h5> 
+          <h5 class="text-primary ">Mobile : {data?.mobile}</h5> 
           </>
         )
       })}

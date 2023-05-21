@@ -21,15 +21,21 @@ import Paper from '@mui/material/Paper';
 import Forms from './Forms';
 import Listing from './Listing';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation , useNavigate } from 'react-router-dom';
+import Rent from '../images/rent_n.png';
+import Sale from '../images/sale_n.png';
+import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const Dashboard = () => {
 
-const DD = useLocation();
-
-console.log(DD);
+const navigate = useNavigate();
 
 const [modal, setmodal] = useState(false);
 const [modalType, setmodalType] = useState([]);
@@ -37,8 +43,11 @@ const [modalType, setmodalType] = useState([]);
 const [modal2, setmodal2] = useState(false);
 const [flag, setflag] = useState(true);
 const [contact, setContact] = useState([]);
+const [contactTable, setContactTable] = useState(false);
+
 
 let email = sessionStorage.getItem('user');
+let Ownername = sessionStorage.getItem('name');
 
 useEffect(()  => {
   axios.get(`http://localhost:5000/app/contact/getContact/${email}`)
@@ -64,7 +73,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -75,6 +83,7 @@ const listing = () => {
   setflag(true);
   setmodal(false);
   setmodal2(false);
+  setContactTable(false);
 }
 
 const handleForm = (type) => {
@@ -82,12 +91,27 @@ const handleForm = (type) => {
     setmodalType(type);
     setmodal2(false);
     setflag(false);
+    setContactTable(false);
 }
 
 const handleForm2 = () => {
     setmodal2(true);
     setmodal(false);
     setflag(false);
+    setContactTable(false);
+}
+
+const handleLogout = () => {
+  navigate('/');
+  sessionStorage.clear();
+}
+
+
+const handleContact = () => {
+    setmodal(false);
+    setmodal2(false);
+    setflag(false);
+    setContactTable(true);
 }
 
   return (
@@ -96,7 +120,7 @@ const handleForm2 = () => {
   
   <div className='header'>
 <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+      <CssBaseline/>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -109,116 +133,127 @@ const handleForm2 = () => {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
-        <Divider />
+       <Toolbar>
+          <AccountCircleIcon
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+          </AccountCircleIcon>
+          Hello, PRIYANKA
+        </Toolbar>
+        <Divider  />
         <List>
             <ListItem key={'Submit Property'} disablePadding>
               <ListItemButton onClick={() => listing()}>
                 <ListItemIcon>
-               <InboxIcon />
+               <AddHomeWorkIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Submit Property'} />
+                <ListItemText style={{fontSize:'25px'}} primary={'Submit Property'} />
               </ListItemButton>
             </ListItem>
             <ListItem key={'Manage Listing'} disablePadding>
               <ListItemButton onClick={() => handleForm2()}>
                 <ListItemIcon>
-               <InboxIcon />
+               <FactCheckIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Manage Listing'} />
+                <ListItemText style={{fontSize:'25px'}} primary={'Manage Listing'} />
               </ListItemButton>
             </ListItem>
             <ListItem key={'Contact Details'} disablePadding>
-              
-            <Link to="/dashboard/contact">
-            <ListItemButton>
-                <ListItemIcon>
-               <InboxIcon />
+            <ListItemButton onClick={() => handleContact()}>
+                <ListItemIcon >
+               <DisplaySettingsIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Contact Details'} />
+                <ListItemText style={{fontSize:'25px'}} primary={'Contact Details'} />
               </ListItemButton>
-            </Link>
-       
-
             </ListItem>
             <ListItem key={'View Profile'} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-               <InboxIcon />
+               <PortraitIcon />
                 </ListItemIcon>
-                <ListItemText primary={'View Profile'} />
+                <ListItemText style={{fontSize:'25px'}} primary={'View Profile'} />
               </ListItemButton>
             </ListItem>
-            <ListItem key={'Change Password'} disablePadding>
+            {/* <ListItem key={'Change Password'} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                <InboxIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Change Password'} />
               </ListItemButton>
+            </ListItem> */}
+            <ListItem key={'Logout'} disablePadding>
+              <ListItemButton  onClick={handleLogout}>
+                <ListItemIcon>
+               <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Logout'} />
+              </ListItemButton>
             </ListItem>
         </List>
         <Divider />
       </Drawer>
     {flag &&
-     <div className="row" style={{padding:'180px 0px 180px 240px'}}>
-  <div className="col-sm-6">
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">SALE PROPERTY</h5>
-        <p className="card-text">* Post Your Property For FREE</p>
-        <p className="card-text">* Get Instant Respose</p>
-        <p className="card-text">* Showcase Your Property</p>
-        <button className="btn btn-primary" onClick={() => handleForm('sale')}>For Sale</button>
-      </div>
+     <div style={{
+      padding: "261px 0px 270px 240px",
+      display: "flex",
+      gap: "50px"  
+      }}>
+    <div>
+     <a onClick={() => handleForm('sale')} >
+     <img src={Sale} alt="Card image cap" width="300px"/>
+      </a> 
     </div>
-  </div>
   
-  <div className="col-sm-6">
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">RENT PROPERTY</h5>
-        <p className="card-text">* Post Your Property For FREE</p>
-        <p className="card-text">* Get Instant Respose</p>
-        <p className="card-text">* Showcase Your Property</p>
-        <button className="btn btn-primary" onClick={() => handleForm('rent')}>For Rent</button>
-      </div>
-    </div>
+    <div>
+      <a onClick={() => handleForm('rent')}>
+    <img src={Rent} alt="Card image cap" width="300px"/>
+      </a>
   </div>  
      </div>
     }
-    
+
+   {contactTable &&
+   <div style={{margin:"100px 250px 443px 250px"}}>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="right">Name</StyledTableCell>
-            <StyledTableCell align="right">Email</StyledTableCell>
-            <StyledTableCell align="right">Mobile number</StyledTableCell>
-            <StyledTableCell align="right">Flat</StyledTableCell>
+            <StyledTableCell align="center">Name</StyledTableCell>
+            <StyledTableCell align="center">Email</StyledTableCell>
+            <StyledTableCell align="center">Mobile number</StyledTableCell>
+            <StyledTableCell align="center">Flat</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {contact?.length > 0 && 
            contact.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.email}</StyledTableCell>
-              <StyledTableCell align="right">{row.mobile}</StyledTableCell>
-              <StyledTableCell align="right">{row.common?.bhk} Flat in {row.common?.location}</StyledTableCell>
+              <StyledTableCell align="center">{row.name}</StyledTableCell>
+              <StyledTableCell align="center">{row.email}</StyledTableCell>
+              <StyledTableCell align="center">{row.mobile}</StyledTableCell>
+              <StyledTableCell align="center">{row.common[0]?.bhk} BHK Flat in {row.common[0]?.location}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
+   } 
 
     </Box>
+
+
 
 {modal=== true && <Forms detail={modalType} Save={setmodal} List={setmodal2}/>}
 
 {modal2 === true && <Listing/>}
-{/* <Outlet /> */}
-    </div>
+
+</div>
   )
 }
 

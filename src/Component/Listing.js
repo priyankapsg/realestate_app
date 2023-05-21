@@ -10,6 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Forms from './Forms';
+import Rent from '../images/rent.png';
+import Sale from '../images/sale.png';
 
 const Listing = () => {
 
@@ -79,11 +81,14 @@ const handleClose = () => {
   return (
     <div className='header'>
       <ToastContainer autoClose={2000}/>
+      <div style={{margin: "0px 0px 0px 100px"}}> 
       {(flat?.length > 0 && formopen)? 
       flat?.map( (data) => {
         return (
           <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
-          <img className="card-img-top" src='https://www.coimbatoreproperty.com/property/image-not-available.jpg' alt="Card image cap"/>
+          <img className="card-img-top" 
+          src={data?.property === 'rent' ? Rent : Sale} 
+          alt="Card image cap"/>
           <div className="card-body text-primary ">
           <h5 className="card-title">
          {data?.bhk} BHK Flat For {data?.property} in {data?.location} 
@@ -100,6 +105,8 @@ const handleClose = () => {
       })
       : ''
     }
+          </div>
+
     
     <Dialog
         fullScreen={fullScreen}

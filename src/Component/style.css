@@ -1,6 +1,7 @@
 .header {
-    background-image: url('https://c4.wallpaperflare.com/wallpaper/514/934/573/desktop-backgrounds-hd-nature-background-1920x1200-wallpaper-preview.jpg');
-    background-size: cover;
+    background-image: url('../images/bg.png');
+    /* background-size: cover; */
+    
 }
 
 .error {
@@ -238,11 +239,11 @@
   background: #fff;
 }
 nav{
-  position: fixed;
+  /* position: fixed; */
   background: #1b1b1b;
   width: 100%;
-  padding: 10px 0;
-  z-index: 12;
+  /* padding: 10px 0; */
+  /* z-index: 12; */
 }
 nav .menu{
   max-width: 1250px;
@@ -279,15 +280,15 @@ nav .menu{
 }
 
 .img{
-  background-image: url('../images/riya.jpeg');
+  background-image: url('../images/banner.png');
   width: 100%;
-  height: 100vh;
+  height: 88.8vh;
   background-size: cover;
   background-position: center;
   position: relative;
 }
 .img::before{
-  content: '';
+  /* content: ''; */
   position: absolute;
   height: 100%;
   width: 100%;
