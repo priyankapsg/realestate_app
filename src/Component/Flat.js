@@ -20,6 +20,7 @@ const Flat = () => {
 
 let { type } = useParams();
 
+const navigate = useNavigate();
 
 const [flat, setflat] = useState([]);
 
@@ -55,8 +56,7 @@ const handlePost = async (values) => {
   ownerEmail: openData?.email,
   name: values?.name,
   email: values?.email,
-  password: values?.password,
-  mobile: values?.mobile,
+  mobile: values?.mobile
   })
   .then( (res) => {
     console.log(res);
@@ -71,14 +71,12 @@ const registerValues = {
   ownerEmail:'',
   name:'',
   email:'',
-  password:'',
-  mobile:'',
+  mobile:''
 }
 
 const RegisterSchema = object().shape({
   name: string().required("Please enter your name"),
   email: string().email("Please enter a valid email address").required("Please enter your email address"),
-  password: string().required("Please enter your password"),
   mobile: number().positive().integer().required("Please enter your mobile number")
 })
 
@@ -89,10 +87,22 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
 })
 
 
+const handleBack = () => {
+  navigate(-1);  
+}
 
 
   return (
     <div className='header'>
+       <div>
+      <nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand"></a>
+  <div className='btn_header'>
+    <button onClick={handleBack} type="submit" className="btn btn-danger ">Back </button>
+  </div>
+</nav>
+          </div>
+
       {flat?.length > 0 && flat?.map( (data) => {
         return (
           <div className="card border-primary mb-3"  style={{width: "25%", margin: "70px 0px 0px 550px"}}>
@@ -136,7 +146,7 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
         )
       })}
       </>
-      
+
       : 
       <>
       <div>
@@ -167,19 +177,6 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
       </div>
       <div>
         <input
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur} 
-        id="password" 
-        type="password" 
-        className="form-control" 
-        placeholder='Enter your password'
-        autoComplete='off'
-        />
-       {errors.password && touched.password && <p className='error'>{errors.password}</p>}
-    </div>
-      <div>
-        <input
         value={values.mobile}
         onChange={handleChange}
         onBlur={handleBlur} 
@@ -203,6 +200,13 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit, handleRe
         </form>
         </DialogContent>
       </Dialog>
+
+      <div>
+<nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand" href="#"></a>
+</nav>
+          </div>
+
 
     </div>
   )

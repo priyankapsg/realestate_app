@@ -32,7 +32,7 @@
     padding-right: auto; */
     height: 700px;
     /* width: 500px; */
-    border-radius: 20px;
+    /* border-radius: 20px; */
     border-left: 1px solid rgb(125, 71, 71);
     border-top: 1px solid rgb(137, 65, 65);
     backdrop-filter: blur(10px);
@@ -40,7 +40,7 @@
     margin: 0 auto; /* Center the form horizontally */
   width: 30%; /* Set a width for the form */
   padding: 40px;
-    text-align: center;
+    /* text-align: center; */
     position: static;
     transition: all 0.2s ease-in-out;
 }
@@ -252,7 +252,7 @@ nav .menu{
   justify-content: space-between;
   padding: 0 20px;
 }
-.menu .logo a{
+.menu .logo{
   text-decoration: none;
   color: #fff;
   font-size: 35px;
@@ -268,7 +268,7 @@ nav .menu{
 .menu ul li:first-child{
   margin-left: 0px;
 }
-.menu ul li a{
+.menu ul li{
   text-decoration: none;
   color: #fff;
   font-size: 18px;
@@ -277,10 +277,7 @@ nav .menu{
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-.menu ul li a:hover{
-  background: #fff;
-  color: black;
-}
+
 .img{
   background-image: url('../images/riya.jpeg');
   width: 100%;

@@ -47,16 +47,31 @@ const {values, errors, touched, setFieldValue, handleBlur, handleChange, handleS
   onSubmit : handlePost,
 })
 
-
 const handleLogin = () => {
   navigate('/login');
 }
 
+const handleBack = () => {
+  navigate(-1);  
+}
+
   return (
+    
+    <>
+       <div>
+      <nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand"></a>
+  <div className='btn_header'>
+    <button onClick={handleBack} type="submit" className="btn btn-danger ">Back </button>
+  </div>
+</nav>
+          </div>
+    
     <div className='body'>
           <ToastContainer autoClose={2000}/>
+        
         <form onSubmit={handleSubmit} autoComplete='off'>
-    {/* <div className="card border-primary"  style={{width: "25%", margin: "180px 0px 200px 550px"}}> */}
+    <div>
     < div className='form'>
   <div className="card-body text-primary">
     <h5 className="card-title">   
@@ -141,8 +156,18 @@ const handleLogin = () => {
   </h5>
   </div>
     </div>
+    </div>
       </form>
     </div>
+
+    <div>
+<nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand" href="#"></a>
+</nav>
+          </div>
+
+
+    </>
   )
 }
 

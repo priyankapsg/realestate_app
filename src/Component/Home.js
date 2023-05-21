@@ -20,22 +20,17 @@ navigate(`./flats/${type}`)
       <nav>
     <div class="menu">
       <div class="logo">
-        <a href="#">Elite Estates</a>
+        <a>Elite Estates</a>
       </div>
-      {/* <div className='animate-charcter' style={{color:"ButtonHighlight",fontFamily:"Lucida Handwriting",padding: "200px 110px 10px 504px"}}> <h1 color='blue'>WELCOME TO DREAM HOME</h1></div>
-
-<nav className="navbar navbar-expand-lg navbar-light" style={{padding: "5px 110px 330px 594px"}}>
-  <div className="collapse navbar-collapse" id="navbarText">
-    <ul className="navbar-nav mr-auto" style={{gap:'20px'}}> */}
  <ul>
       <li>
-      <a href='#'onClick={() => handleFlat('sale')}>buy</a>
+      <button className="btn btn-light" onClick={() => handleFlat('sale')}>buy</button>
       </li>
       <li>
-            <a href="#" onClick={() => handleFlat('rent')} >Rent</a>
+      <button className="btn btn-light" onClick={() => handleFlat('rent')} >Rent</button>
       </li>
       <li>
-            <a href="#" onClick={handleRoute} >Post your Property</a>
+      <button className="btn btn-light" onClick={handleRoute} >Post your Property</button>
       </li>
     </ul>
   </div>

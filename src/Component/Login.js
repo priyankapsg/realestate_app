@@ -49,9 +49,27 @@ const Login = () => {
     navigate('/register');
   }
   
+  const handleBack = () => {
+    navigate(-1);  
+  }
+
     return (
-      <div className='body'>
+
+<>
+
+<div>
+      <nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand"></a>
+  <div className='btn_header'>
+    <button onClick={handleBack} type="submit" className="btn btn-danger ">Back </button>
+  </div>
+</nav>
+          </div>
+          <div className='body'>
           <ToastContainer autoClose={2000}/>
+
+       
+
         <form onSubmit={handleSubmit} autoComplete='off'>
     {/* <div className="card border-primary"  style={{width: "25%", margin: "180px 0px 200px 550px"}}> */}
     < div className='form'>
@@ -96,6 +114,17 @@ const Login = () => {
     </div>
         </form>
       </div>
+
+
+          <div>
+<nav className="navbar navbar-dark bg-dark">
+  <a className="navbar-brand" href="#"></a>
+</nav>
+          </div>
+
+</>
+
+
     )
 }
 
